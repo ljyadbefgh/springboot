@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8"/>
+    <title>hello</title>
+    <!--导入bootstrap插件-->
+    <link rel="stylesheet" th:href="@{/plugins/bootstrap/css/bootstrap.css}">
+    <script th:src="@{/plugins/jquery.js}"></script>
+    <script type="text/javascript" th:src="@{/plugins/bootstrap/js/bootstrap.js}"></script>
+    <!--导入自定义样式文件-->
+    <link rel="stylesheet" th:href="@{/css/mycss.css}">
+    <script th:inline="javascript" type="text/javascript">
+        $(document).ready(function() {
+            $("#login_button").click(function(e) {
+                $myForm=$("#myForm");
+                var url= $myForm.attr("action");
+                $.post(url,
+                    $myForm.serialize(),
+                    function(data) {
+                        //jquery自带的json转换方法
+                        if(typeof data != 'object') { //如果不是JS对象（则为JSON格式的数据，如servlet输出的JSON），则转换成JS对象
+                            data = $.parseJSON(data);
+                        }
+                        if(data.status == 1) { //如果登录成功
+                            /**
+                             *  说明，其实下面的这几行代码只用一行就可以完成
+                             *  window.location.href = [[@{/backstage/adminmanage/toManageAdmin}]];
+                             *  但是因为idea编辑器报错看起来不好看（并不影响实际使用），所以就改为使用
+                             *  CDATA包起来，然后用null来表示，避免编辑器报错
+                             *  /
+                             /*<![CDATA[*/
+                            window.location.href = /*[[@{/backstage/adminmanage/toManageAdmin}]]*/null;
+                            /*]]>*/
+                        }
+                        if(data.status == -1) { //如果登录失败
+                            alert(data.myMessage);
+                        }
+                    }
+                );
+            });
+        });
+    </script>
+</head>
+<body>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">
+            后台系统登录界面
+        </h3>
+    </div>
+    <div class="panel-body">
+        <form id="myForm" role="form" th:action="@{/backstage/login}" method="post">
+            <div class="form-group">
+                <label for="username">账户名</label>
+                <input type="text" class="form-control" id="username" name="username" placeholder="请输入账户名">
+            </div>
+            <div class="form-group">
+                <label for="password">密码</label>
+                <input type="password" class="form-control" id="password" name="password" placeholder="请输入密码">
+            </div>
+            <input id="login_button" type="button" value="登录" class="btn btn-primary btn-block">
+        </form>
+    </div>
+</div>
+</body>
+</html>
