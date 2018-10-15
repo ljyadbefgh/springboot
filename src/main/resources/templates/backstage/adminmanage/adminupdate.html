@@ -1,8 +1,7 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
-
 <head>
-    <meta charset="utf-8" />
+    <meta charset="utf-8"/>
     <title>hello</title>
     <!--导入bootstrap插件-->
     <link rel="stylesheet" th:href="@{/plugins/bootstrap/css/bootstrap.css}">
@@ -12,9 +11,9 @@
     <link rel="stylesheet" th:href="@{/css/mycss.css}">
     <script th:inline="javascript" type="text/javascript">
         $(document).ready(function() {
-            $("button[name='addAdmin']").click(function() {
+            $("button[name='updateAdmin']").click(function() {
                 var $myForm = $("#myForm"); //获取指定a标签的jquery对象
-                $.post([[@{/backstage/adminmanage/doAddAdmin}]],
+                $.post([[@{/backstage/adminmanage/doUpdateAdmin}]],
                 $("#myForm").serialize(),
                     function(data) {
                         //jquery自带的json转换方法
@@ -22,34 +21,29 @@
                             data = $.parseJSON(data);
                         }
                         alert(data.myMessage);
-                        if(data.status == 1) {
-                            window.location.href = [[@{/backstage/adminmanage/toAddAdmin}]];
-                        }
                     }
             );
             });
         });
     </script>
 </head>
-
 <body>
 <div style="text-align: right;">
-    <span th:text="${session.admin.name}"></span>,
-    <a th:href="@{/backstage/logout}">注销</a>
+    <span th:text="${session.admin.name}"></span>,<a th:href="@{/backstage/logout}">注销</a>
 </div>
 <form id="myForm" role="form">
+    <input type="hidden" name="id" th:value="${admin.id}">
     <div class="form-group">
         <label for="username">账户名</label>
-        <input type="text" class="form-control" id="username" name="username" placeholder="请输入账户名">
+        <input type="text" class="form-control" id="username" name="username" placeholder="请输入账户名" th:value="${admin.username}">
     </div>
     <div class="form-group">
         <label for="name">名称</label>
-        <input type="text" class="form-control" id="name" name="name" placeholder="请输入姓名">
+        <input type="text" class="form-control" id="name" name="name" placeholder="请输入姓名" th:value="${admin.name}">
     </div>
 
-    <button name="addAdmin" type="button" class="btn btn-default">创建管理账户</button>
+    <button name="updateAdmin" type="button" class="btn btn-default">修改管理账户</button>
     <a class="btn btn-info" th:href="@{/backstage/adminmanage/toManageAdmin}">返回账户管理页面</a>
 </form>
 </body>
-
 </html>

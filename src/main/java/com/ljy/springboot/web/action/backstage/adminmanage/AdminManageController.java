@@ -82,7 +82,7 @@ public class AdminManageController {
 	@RequestMapping(value = "/toUpdateAdmin")
 	public String toUpdateAdmin(Integer id,HttpServletRequest request){
 		request.setAttribute("admin",adminService.getAdmin(id));
-		return "/jsp/backstage/adminmanage/adminupdate.jsp";
+		return "/backstage/adminmanage/adminupdate.html";
 	}
 
 	@ResponseBody
