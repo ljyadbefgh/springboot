@@ -3,8 +3,9 @@
 <head>
     <meta charset="utf-8"/>
     <title>管理账户管理</title>
-    <!--导入bootstrap插件-->
-    <link rel="stylesheet" th:href="@{/plugins/bootstrap/css/bootstrap.css}">
+    <!--导入layui插件-->
+    <link rel="stylesheet" th:href="@{/plugins/layui/css/layui.css}">
+    <!--导入jquery插件-->
     <script th:src="@{/plugins/jquery.js}"></script>
     <script type="text/javascript" th:src="@{/plugins/bootstrap/js/bootstrap.js}"></script>
     <!--导入自定义样式文件-->
@@ -32,13 +33,10 @@
     </script>
 </head>
 <body>
-<div style="text-align: right;">
-    <span th:text="${session.admin.name}"></span>,<a th:href="@{/backstage/logout}">注销</a>
-</div>
-<a th:href="@{/backstage/adminmanage/toAddAdmin}" class="btn btn-primary" role="button" style="margin:5px 2px;text-shadow: black 5px 3px 3px;">
-    <span class="glyphicon glyphicon-plus" style="margin-right:5px;"></span> 添加管理账户
+<a th:href="@{/backstage/adminmanage/toAddAdmin}" class="layui-btn">
+    添加管理账户
 </a>
-<table class="table table-bordered table-hover  table-striped">
+<table class="layui-table" lay-even>
     <thead>
     <tr>
         <th>账户名</th>
@@ -52,11 +50,10 @@
             <td th:text="${admin.username}"></td>
             <td th:text="${admin.password}"></td>
             <td th:text="${admin.name}"></td>
-            <td style="width:20%;"><a th:href="@{/backstage/adminmanage/toUpdateAdmin(id=${admin.id})}" class="btn btn-info btn-xs">修改</a>
-                <a name="deleteAdmin" class="btn btn-info btn-xs" th:href="@{/backstage/adminmanage/doDeleteAdmin(id=${admin.id})}">删除</a>
+            <td style="width:20%;"><a th:href="@{/backstage/adminmanage/toUpdateAdmin(id=${admin.id})}" class="layui-btn layui-btn-xs">修改</a>
+                <a name="deleteAdmin" th:href="@{/backstage/adminmanage/doDeleteAdmin(id=${admin.id})}" class="layui-btn layui-btn-xs" >删除</a>
             </td>
         </tr>
-
     </tbody>
 </table>
 </body>

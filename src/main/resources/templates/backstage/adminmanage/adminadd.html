@@ -4,10 +4,10 @@
 <head>
     <meta charset="utf-8" />
     <title>hello</title>
-    <!--导入bootstrap插件-->
-    <link rel="stylesheet" th:href="@{/plugins/bootstrap/css/bootstrap.css}">
+    <!--导入jquery插件-->
     <script th:src="@{/plugins/jquery.js}"></script>
-    <script type="text/javascript" th:src="@{/plugins/bootstrap/js/bootstrap.js}"></script>
+    <!--导入layui插件-->
+    <link rel="stylesheet" th:href="@{/plugins/layui/css/layui.css}">
     <!--导入自定义样式文件-->
     <link rel="stylesheet" th:href="@{/css/mycss.css}">
     <script th:inline="javascript" type="text/javascript">
@@ -15,7 +15,7 @@
             $("button[name='addAdmin']").click(function() {
                 var $myForm = $("#myForm"); //获取指定a标签的jquery对象
                 $.post([[@{/backstage/adminmanage/doAddAdmin}]],
-                $("#myForm").serialize(),
+                    $("#myForm").serialize(),
                     function(data) {
                         //jquery自带的json转换方法
                         if(typeof data != 'object') { //如果不是JS对象（则为JSON格式的数据，如servlet输出的JSON），则转换成JS对象
@@ -33,22 +33,25 @@
 </head>
 
 <body>
-<div style="text-align: right;">
-    <span th:text="${session.admin.name}"></span>,
-    <a th:href="@{/backstage/logout}">注销</a>
+<form id="myForm" class="layui-form">
+<div class="layui-form-item">
+    <label class="layui-form-label">账户名</label>
+    <div class="layui-input-block">
+        <input type="text" id="username" name="username"  required  lay-verify="required" placeholder="请输入账户名" autocomplete="off" class="layui-input">
+    </div>
 </div>
-<form id="myForm" role="form">
-    <div class="form-group">
-        <label for="username">账户名</label>
-        <input type="text" class="form-control" id="username" name="username" placeholder="请输入账户名">
+<div class="layui-form-item">
+    <label class="layui-form-label">姓名</label>
+    <div class="layui-input-block">
+        <input type="text" id="name" name="name"  required  lay-verify="required" placeholder="请输入姓名" autocomplete="off" class="layui-input">
     </div>
-    <div class="form-group">
-        <label for="name">名称</label>
-        <input type="text" class="form-control" id="name" name="name" placeholder="请输入姓名">
+</div>
+<div class="layui-form-item">
+    <div class="layui-input-block">
+        <button name="addAdmin" class="layui-btn">创建管理账户1</button>
+        <a class="layui-btn layui-btn-primary" th:href="@{/backstage/adminmanage/toManageAdmin}">返回账户管理页面</a>
     </div>
-
-    <button name="addAdmin" type="button" class="btn btn-default">创建管理账户</button>
-    <a class="btn btn-info" th:href="@{/backstage/adminmanage/toManageAdmin}">返回账户管理页面</a>
+</div>
 </form>
 </body>
 

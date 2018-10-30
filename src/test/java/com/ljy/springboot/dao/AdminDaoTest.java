@@ -34,8 +34,8 @@ public class AdminDaoTest  extends SpringbootApplicationTests {
     @Test
     public void addTest(){
         Admin admin=new Admin();
-        admin.setUsername("user1");
-        admin.setPassword("345");
+        admin.setUsername("user9");
+        admin.setPassword("13");
         admin.setName("小红");
         adminDao.add(admin);
     }

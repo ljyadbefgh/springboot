@@ -2,6 +2,7 @@ package com.ljy.springboot.dao;
 
 import com.ljy.springboot.model.Admin;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 

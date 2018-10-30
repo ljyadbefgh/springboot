@@ -36,6 +36,7 @@ public class LoginController {
 	@RequestMapping(value = "/login")
 	public Map<String, Object> login(String username, String password, HttpSession session){
 		Map<String, Object> map=new HashMap<String, Object>();
+		adminService.getAdmins();
 		Admin admin=adminService.login(username, password);
 		if(admin!=null){
 			session.setAttribute("admin",admin);
@@ -55,6 +56,25 @@ public class LoginController {
 	public String logout(HttpSession session){
 		session.removeAttribute("admin");
 		return "/backstage/login.html";
+	}
+
+
+	/**
+	 * 跳转到后台首页
+	 * @return
+	 */
+	@RequestMapping(value = "/index")
+	public String index(){
+		return "/backstage/index.html";
+	}
+
+	/**
+	 * 跳转到后台首页主要内容
+	 * @return
+			 */
+	@RequestMapping(value = "/main")
+	public String main(){
+		return "/backstage/main.html";
 	}
 
 

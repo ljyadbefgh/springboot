@@ -5,12 +5,14 @@ import com.ljy.springboot.model.Admin;
 import com.ljy.springboot.model.exception.MyFormException;
 import com.ljy.springboot.service.AdminService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.List;
 
-@Transactional
+@Transactional(propagation = Propagation.REQUIRED,isolation = Isolation.DEFAULT,timeout=36000,rollbackFor=Exception.class)
 @Service
 public class AdminServiceImpl implements AdminService {
     @Resource

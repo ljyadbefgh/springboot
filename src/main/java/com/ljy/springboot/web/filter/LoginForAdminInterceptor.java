@@ -77,8 +77,6 @@ public class LoginForAdminInterceptor extends HandlerInterceptorAdapter {
 				//request.setAttribute("myMessage",message);
 				//request.getRequestDispatcher("/admin/toLogin").forward(request,response);
 			}
-			
-			
 		}
 		return flag;
 	}

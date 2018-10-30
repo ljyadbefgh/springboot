@@ -2,14 +2,16 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8"/>
-    <title>hello</title>
-    <!--导入bootstrap插件-->
-    <link rel="stylesheet" th:href="@{/plugins/bootstrap/css/bootstrap.css}">
+    <title>后台系统登录页面</title>
+    <!--导入jquery插件-->
     <script th:src="@{/plugins/jquery.js}"></script>
-    <script type="text/javascript" th:src="@{/plugins/bootstrap/js/bootstrap.js}"></script>
-    <!--导入自定义样式文件-->
-    <link rel="stylesheet" th:href="@{/css/mycss.css}">
+    <!--导入layui插件-->
+    <link rel="stylesheet" th:href="@{/plugins/layui/css/layui.css}">
     <script th:inline="javascript" type="text/javascript">
+        if (window != top){
+            //如果login页面在iframe中嵌套，则跳转到最外层页面
+            top.location.href = location.href;
+        }
         $(document).ready(function() {
             $("#login_button").click(function(e) {
                 $myForm=$("#myForm");
@@ -29,7 +31,7 @@
                              *  CDATA包起来，然后用null来表示，避免编辑器报错
                              *  /
                              /*<![CDATA[*/
-                            window.location.href = /*[[@{/backstage/adminmanage/toManageAdmin}]]*/null;
+                            window.location.href = /*[[@{/backstage/index}]]*/null;
                             /*]]>*/
                         }
                         if(data.status == -1) { //如果登录失败
@@ -42,25 +44,31 @@
     </script>
 </head>
 <body>
-<div class="panel panel-default">
-    <div class="panel-heading">
-        <h3 class="panel-title">
-            后台系统登录界面
-        </h3>
-    </div>
-    <div class="panel-body">
-        <form id="myForm" role="form" th:action="@{/backstage/login}" method="post">
-            <div class="form-group">
-                <label for="username">账户名</label>
-                <input type="text" class="form-control" id="username" name="username" placeholder="请输入账户名">
-            </div>
-            <div class="form-group">
-                <label for="password">密码</label>
-                <input type="password" class="form-control" id="password" name="password" placeholder="请输入密码">
-            </div>
-            <input id="login_button" type="button" value="登录" class="btn btn-primary btn-block">
-        </form>
+<div class="layui-container">
+    <div class="layui-row" style="text-align: center;">
+        <h2>登录界面</h2>
     </div>
 </div>
+<form id="myForm"  class="layui-form" th:action="@{/backstage/login}">
+    <div class="layui-form-item">
+        <label class="layui-form-label">账户名</label>
+        <div class="layui-input-block">
+            <input type="text" id="username" name="username"  required  lay-verify="required" placeholder="请输入账户名" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">密码</label>
+        <div class="layui-input-block">
+            <input type="password" id="password" name="password"  required  lay-verify="required" placeholder="请输入密码" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <div class="layui-input-block">
+            <input id="login_button" type="button" name="login" value="登录"  class="layui-btn" lay-submit lay-filter="formDemo">
+        </div>
+    </div>
+
+</form>
+
 </body>
 </html>
